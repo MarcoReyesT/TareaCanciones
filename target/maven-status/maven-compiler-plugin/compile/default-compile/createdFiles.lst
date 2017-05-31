@@ -1,0 +1,5 @@
+entidades/Artista.class
+controladores/CancionManager.class
+controladores/ArtistaManager.class
+entidades/Estilo.class
+entidades/Cancion.class
