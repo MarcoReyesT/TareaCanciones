@@ -13,6 +13,6 @@ public enum Estilo {
     
     ROCK,
     POP,
-    CLASICA
+    FOLK
     
 }

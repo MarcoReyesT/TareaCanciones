@@ -12,19 +12,19 @@
         <title>Canciones</title>
     </head>
     <body>
-        <form action="ServletCancion" method="post">
+        <form action="CancionManager" method="post">
 
             <fieldset>
                 <legend>Gestion Cancion:</legend>
 
                 Artista:
-                <input type="text" name="artista" value="${artista.nombre}" /><br><br>
+                <input type="text" name="artista" value="${artista.nombre}" disabled/><br><br>
 
                 Cancion:
-                <input type="text" name="cancion" value="" /><br><br>
-                
+                <input type="text" name="cancion" value="" required/><br><br>
+
                 Duración:
-                <input type="text" name="duracion" value="" /><br><br>
+                <input type="number" name="duracion" value="" /><br><br>
 
 
                 <input type="submit" value="Cancelar" />
@@ -38,14 +38,25 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Estilo</th>
-                    <th>Acciones</th>
+                    <th>Cancion</th>
+                    <th>Duracion</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
+            <c:forEach var="cantidad" items="${artistas}">
+                <tr>
+                    <td>${cantidad.nombre}</td>
 
-            </tbody>
-        </table>
-    </body>
+                    <td>${cantidad.estilo}</td>
+
+                    <td>
+                        <a href="CancionManager?artista=${cantidad.id}">Editar</a>
+                        <a href="CancionManager?artista=${cantidad.id}">Borrar</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</body>
 </html>

@@ -8,7 +8,6 @@ package controladores;
 import entidades.Artista;
 import entidades.Estilo;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author marco
  */
 public class ArtistaManager extends HttpServlet {
-    
-    private ArrayList<Artista> artistas = new ArrayList<>();
+
+    protected static ArrayList<Artista> artistas = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,25 +34,39 @@ public class ArtistaManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String estilo = (String)request.getParameter("estilo");
-        
-        Artista artista = new Artista();
-        artista.setNombre(request.getParameter("nombre"));
-        
-        if (estilo.equals("Rock")) {
-            artista.setEstilo(Estilo.ROCK);
-        }else if (estilo.equals("Pop")) {
-            artista.setEstilo(Estilo.POP);
-        }else if (estilo.equals("Clasica")) {
-            artista.setEstilo(Estilo.CLASICA);
+
+        boolean isGet = request.getMethod().equals("GET");
+
+        if (isGet) {
+            String idArtista = request.getParameter("artista");
+            int id = Integer.parseInt(idArtista);
+            Artista artista = ArtistaManager.artistas.get(id);
+
+            request.setAttribute("artista", artista);
+
+        } else {
+            String estilo = (String) request.getParameter("estilo");
+
+            Artista artista = new Artista();
+            artista.setNombre(request.getParameter("nombre"));
+
+            if (estilo.equals("Rock")) {
+                artista.setEstilo(Estilo.ROCK);
+            } else if (estilo.equals("Pop")) {
+                artista.setEstilo(Estilo.POP);
+            } else if (estilo.equals("Folk")) {
+                artista.setEstilo(Estilo.FOLK);
+            }
+            ArtistaManager.artistas.add(artista);
+
+            artista.setId(ArtistaManager.artistas.indexOf(artista));
         }
-        this.artistas.add(artista);
-        
-        request.setAttribute("artistas", this.artistas);
+
+        request.setAttribute("artistas", ArtistaManager.artistas);
 
         RequestDispatcher rd = request.getRequestDispatcher("vista_artista.jsp");
         rd.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

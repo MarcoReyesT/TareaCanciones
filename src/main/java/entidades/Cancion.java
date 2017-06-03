@@ -12,7 +12,7 @@ package entidades;
 public class Cancion {
     
     private String nombre;
-    private String duracion;
+    private double duracion;
 
     public Cancion() {
     }
@@ -25,11 +25,11 @@ public class Cancion {
         this.nombre = nombre;
     }
 
-    public String getDuracion() {
+    public double getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(String duracion) {
+    public void setDuracion(double duracion) {
         this.duracion = duracion;
     }
     

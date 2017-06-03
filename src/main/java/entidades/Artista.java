@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Artista {
     
+    private int id;    
     private String nombre;
     private Estilo estilo;
     private ArrayList<Cancion> canciones;
@@ -42,6 +43,14 @@ public class Artista {
 
     public void setCanciones(ArrayList<Cancion> canciones) {
         this.canciones = canciones;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

@@ -14,22 +14,24 @@
     </head>
     <body>
         <form action="ArtistaManager" method="post">
-            <h3>Gestion Artista</h3><br>
-            
-            Nombre:
-            <input type="text" name="nombre" value="" /><br>
-            
-            Estilo:
-            <select name="estilo" size="1">
-                <option value="Rock">Rock</option>
-                <option value="Pop">Pop</option>
-                <option value="Clasica">Clasica</option>
-            </select><br>
-            
-            <input type="submit" value="Cancelar" />
-            <input type="submit" value="Guardar" />
+            <fieldset>
+                <legend>Gestion Artista:</legend>
+
+                Nombre:
+                <input type="text" name="nombre" value="${artista.nombre}" required/><br>
+
+                Estilo: &nbsp; &nbsp;
+                <select name="estilo" size="1">
+                    <option value="Rock">Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Folk">Folk</option>
+                </select><br><br>
+
+                <input type="submit" value="Cancelar" />
+                <input type="submit" value="Guardar" />
+            </fieldset>
         </form>
-        
+
         <table border="1">
             <thead>
                 <tr>
@@ -42,13 +44,13 @@
                 <c:forEach var="cantidad" items="${artistas}">
                     <tr>
                         <td>${cantidad.nombre}</td>
-                        
+
                         <td>${cantidad.estilo}</td>
-                        
+
                         <td>
-                            <a href="CancionManager?artista=${cantidad}">Editar</a>
-                            <a href="CancionManager?artista=${cantidad}">Borrar</a>
-                            <a href="CancionManager?artista=${cantidad}">Canciones</a>
+                            <a href="ArtistaManager?artista=${cantidad.id}">Editar</a>
+                            <a href="CancionManager?artista=${cantidad.id}">Borrar</a>
+                            <a href="CancionManager?artista=${cantidad.id}">Canciones</a>
                         </td>
                     </tr>
                 </c:forEach>

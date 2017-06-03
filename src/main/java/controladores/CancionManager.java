@@ -34,19 +34,25 @@ public class CancionManager extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Cancion cancion = new Cancion();
-        Artista artista = new Artista();
-        artista.setNombre(request.getParameter("nombre"));
-        if (artista.getEstilo() == Estilo.ROCK) {
-            //estilo.equals("Rock");
-        }else if (artista.getEstilo() == Estilo.POP) {
-            artista.setEstilo(Estilo.POP);
-        }
+        String idArtista = request.getParameter("artista");
+        
+        //el objeto artista se destruye en el archivo jsp vista_artista
+        //por lo que es necesario utilizar un identificador
+        int id = Integer.parseInt(idArtista);
+        
+        Artista artista = ArtistaManager.artistas.get(id);
+        //String artista = request.getParameter("artista");
+        //Artista artista = (Artista)request.getAttribute("artista");
+//        if (artista.getEstilo() == Estilo.ROCK) {
+//            estilo.equals("Rock");
+//        }else if (artista.getEstilo() == Estilo.POP) {
+//            artista.setEstilo(Estilo.POP);
+//        }
         
 
         request.setAttribute("artista", artista);
 
-        RequestDispatcher rd = request.getRequestDispatcher("index.html");
+        RequestDispatcher rd = request.getRequestDispatcher("vista_canciones.jsp");
         rd.forward(request, response);
         
     }
