@@ -45,6 +45,9 @@ public class ArtistaManager extends HttpServlet {
                 int id = Integer.parseInt(idArtista);
                 if (accion.equals("borrar")) {
                     ArtistaManager.artistas.remove(id);
+                    for (int i = 0; i < ArtistaManager.artistas.size(); i++) {
+                        ArtistaManager.artistas.get(i).setId(i);
+                    }
                 } else if (accion.equals("editar")) {
                     Artista artista = ArtistaManager.artistas.get(id);
                     request.setAttribute("artista", artista);

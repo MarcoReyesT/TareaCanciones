@@ -52,6 +52,9 @@ public class CancionManager extends HttpServlet {
                 int cid = Integer.parseInt(idCancion);
                 if (accion.equals("borrar")) {
                     ArtistaManager.artistas.get(id).getCanciones().remove(cid);
+                    for (int i = 0; i < ArtistaManager.artistas.get(id).getCanciones().size(); i++) {
+                        ArtistaManager.artistas.get(id).getCanciones().get(i).setId(i);
+                    }
                 } else if (accion.equals("editar")) {
                     request.setAttribute("cancion", ArtistaManager.artistas.get(id).getCanciones().get(cid));
                 }
