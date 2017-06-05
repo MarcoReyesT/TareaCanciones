@@ -19,6 +19,7 @@ public class Artista {
     private ArrayList<Cancion> canciones;
 
     public Artista() {
+        this.canciones = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -53,6 +54,8 @@ public class Artista {
         this.id = id;
     }
     
-    
+    public boolean agregarCancion(Cancion cancion){
+        return this.canciones.add(cancion);
+    }
     
 }

@@ -27,7 +27,7 @@
                     <option value="Folk">Folk</option>
                 </select><br><br>
 
-                <input type="submit" value="Cancelar" />
+                <input type="reset" value="Cancelar" />
                 <input type="submit" value="Guardar" />
             </fieldset>
         </form>
@@ -48,8 +48,8 @@
                         <td>${cantidad.estilo}</td>
 
                         <td>
-                            <a href="ArtistaManager?artista=${cantidad.id}">Editar</a>
-                            <a href="CancionManager?artista=${cantidad.id}">Borrar</a>
+                            <a href="ArtistaManager?artista=${cantidad.id}&accion=editar">Editar</a>
+                            <a href="ArtistaManager?artista=${cantidad.id}&accion=borrar">Borrar</a>
                             <a href="CancionManager?artista=${cantidad.id}">Canciones</a>
                         </td>
                     </tr>

@@ -4,6 +4,7 @@
     Author     : marco
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,22 +13,23 @@
         <title>Canciones</title>
     </head>
     <body>
-        <form action="CancionManager" method="post">
+        <form action="CancionManager" method="POST">
 
             <fieldset>
                 <legend>Gestion Cancion:</legend>
 
                 Artista:
-                <input type="text" name="artista" value="${artista.nombre}" disabled/><br><br>
+                <input type="text" name="nombreArtista" value="${artista.nombre}" disabled/><br><br>
 
                 Cancion:
-                <input type="text" name="cancion" value="" required/><br><br>
+                <input type="text" name="nombre" value="${cancion.nombre}" required/><br><br>
 
                 Duración:
-                <input type="number" name="duracion" value="" /><br><br>
+                <input type="number" name="duracion" value="${cancion.duracion}" required/><br><br>
+                <input type="text" name="artista" value="${artista.id}" hidden/><br>
 
-
-                <input type="submit" value="Cancelar" />
+                <a href="ArtistaManager?"><input type="button" value="Cancelar" /></a>
+                
                 <input type="submit" value="Guardar" />
 
 
@@ -44,15 +46,15 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="cantidad" items="${artistas}">
+            <c:forEach var="aux" items="${canciones}">
                 <tr>
-                    <td>${cantidad.nombre}</td>
+                    <td>${aux.nombre}</td>
 
-                    <td>${cantidad.estilo}</td>
+                    <td>${aux.duracion}</td>
 
                     <td>
-                        <a href="CancionManager?artista=${cantidad.id}">Editar</a>
-                        <a href="CancionManager?artista=${cantidad.id}">Borrar</a>
+                        <a href="CancionManager?artista=${artista.id}&cancion=${aux.id}&accion=editar">Editar</a>
+                        <a href="CancionManager?artista=${artista.id}&cancion=${aux.id}&accion=borrar">Borrar</a>
                     </td>
                 </tr>
             </c:forEach>

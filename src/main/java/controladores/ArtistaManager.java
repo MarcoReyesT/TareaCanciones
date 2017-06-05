@@ -38,11 +38,20 @@ public class ArtistaManager extends HttpServlet {
         boolean isGet = request.getMethod().equals("GET");
 
         if (isGet) {
+            String accion = request.getParameter("accion");
             String idArtista = request.getParameter("artista");
-            int id = Integer.parseInt(idArtista);
-            Artista artista = ArtistaManager.artistas.get(id);
 
-            request.setAttribute("artista", artista);
+            if (accion != null) {
+                int id = Integer.parseInt(idArtista);
+                if (accion.equals("borrar")) {
+                    ArtistaManager.artistas.remove(id);
+                } else if (accion.equals("editar")) {
+                    Artista artista = ArtistaManager.artistas.get(id);
+                    request.setAttribute("artista", artista);
+                }
+            } else {
+                request.setAttribute("artistas", ArtistaManager.artistas);
+            }
 
         } else {
             String estilo = (String) request.getParameter("estilo");
@@ -60,6 +69,7 @@ public class ArtistaManager extends HttpServlet {
             ArtistaManager.artistas.add(artista);
 
             artista.setId(ArtistaManager.artistas.indexOf(artista));
+
         }
 
         request.setAttribute("artistas", ArtistaManager.artistas);

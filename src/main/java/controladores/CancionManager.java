@@ -10,6 +10,7 @@ import entidades.Cancion;
 import entidades.Estilo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,28 +34,44 @@ public class CancionManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        boolean isPost = request.getMethod().equals("POST");
+
         String idArtista = request.getParameter("artista");
-        
         //el objeto artista se destruye en el archivo jsp vista_artista
         //por lo que es necesario utilizar un identificador
         int id = Integer.parseInt(idArtista);
         
-        Artista artista = ArtistaManager.artistas.get(id);
-        //String artista = request.getParameter("artista");
-        //Artista artista = (Artista)request.getAttribute("artista");
-//        if (artista.getEstilo() == Estilo.ROCK) {
-//            estilo.equals("Rock");
-//        }else if (artista.getEstilo() == Estilo.POP) {
-//            artista.setEstilo(Estilo.POP);
-//        }
-        
+        if (!isPost) {
 
-        request.setAttribute("artista", artista);
+            request.setAttribute("artista", ArtistaManager.artistas.get(id));
+
+            String accion = request.getParameter("accion");
+            if (accion != null) {
+                String idCancion = request.getParameter("cancion");
+                int cid = Integer.parseInt(idCancion);
+                if (accion.equals("borrar")) {
+                    ArtistaManager.artistas.get(id).getCanciones().remove(cid);
+                } else if (accion.equals("editar")) {
+                    request.setAttribute("cancion", ArtistaManager.artistas.get(id).getCanciones().get(cid));
+                }
+            }
+
+        } else {
+            Cancion cancion = new Cancion();
+            cancion.setNombre(request.getParameter("nombre"));
+            cancion.setDuracion(Double.parseDouble(request.getParameter("duracion")));
+            ArtistaManager.artistas.get(id).agregarCancion(cancion);
+            cancion.setId(ArtistaManager.artistas.get(id).getCanciones().indexOf(cancion));
+            request.setAttribute("artista", ArtistaManager.artistas.get(id));
+            
+        }
+        
+        request.setAttribute("canciones", ArtistaManager.artistas.get(id).getCanciones());
 
         RequestDispatcher rd = request.getRequestDispatcher("vista_canciones.jsp");
         rd.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

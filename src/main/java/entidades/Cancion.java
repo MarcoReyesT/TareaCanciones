@@ -11,6 +11,7 @@ package entidades;
  */
 public class Cancion {
     
+    private int id;    
     private String nombre;
     private double duracion;
 
@@ -31,6 +32,14 @@ public class Cancion {
 
     public void setDuracion(double duracion) {
         this.duracion = duracion;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     
